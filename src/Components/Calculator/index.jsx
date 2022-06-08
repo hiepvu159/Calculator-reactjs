@@ -42,11 +42,11 @@ function Calculator() {
           /
         </button>
         <button
-          name="x"
+          name="*"
           onClick={() => dispatch(multi("*"))}
           className="bg-blue-500 h-16 hover:bg-blue-700 text-white font-bold py-2 px-4 border"
         >
-          x
+          *
         </button>
         <button
           name="7"

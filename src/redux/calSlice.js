@@ -22,34 +22,54 @@ export const calculatorSlice = createSlice({
     },
 
     add(state, { payload }) {
+      const history = () =>
+        state.operation !== ""
+          ? state.previousValue.substring(0, state.previousValue.length - 1)
+          : state.previousValue;
+
       return {
         ...state,
         operation: payload,
-        previousValue: state.currentValue + payload,
+        previousValue: state.currentValue + history() + payload,
         currentValue: "",
       };
     },
     sub(state, { payload }) {
+      const history = () =>
+        state.operation !== ""
+          ? state.previousValue.substring(0, state.previousValue.length - 1)
+          : state.previousValue;
+
       return {
         ...state,
         operation: payload,
-        previousValue: state.currentValue + payload,
+        previousValue: state.currentValue + history() + payload,
         currentValue: "",
       };
     },
     multi(state, { payload }) {
+      const history = () =>
+        state.operation !== ""
+          ? state.previousValue.substring(0, state.previousValue.length - 1)
+          : state.previousValue;
+
       return {
-        operation: payload,
         ...state,
-        previousValue: state.currentValue + payload,
+        operation: payload,
+        previousValue: state.currentValue + history() + payload,
         currentValue: "",
       };
     },
     div(state, { payload }) {
+      const history = () =>
+        state.operation !== ""
+          ? state.previousValue.substring(0, state.previousValue.length - 1)
+          : state.previousValue;
+
       return {
         ...state,
         operation: payload,
-        previousValue: state.currentValue + payload,
+        previousValue: state.currentValue + history() + payload,
         currentValue: "",
       };
     },
@@ -67,15 +87,7 @@ export const calculatorSlice = createSlice({
   },
 });
 
-export const {
-  numberClick,
-  clickOperationAgain,
-  add,
-  sub,
-  multi,
-  div,
-  equals,
-  clear,
-} = calculatorSlice.actions;
+export const { numberClick, add, sub, multi, div, equals, clear } =
+  calculatorSlice.actions;
 // export const selectOutput = (state) => state.calculator.output;
 export default calculatorSlice.reducer;
