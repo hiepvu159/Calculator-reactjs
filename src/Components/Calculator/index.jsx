@@ -1,6 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { numberClick } from "../../redux/calSlice";
+import {
+  numberClick,
+  add,
+  sub,
+  multi,
+  div,
+  equals,
+  clear,
+} from "../../redux/calSlice";
 
 function Calculator() {
   const dispatch = useDispatch();
@@ -10,29 +18,32 @@ function Calculator() {
   return (
     <div className="bg-neutral-700 w-72 p-3">
       <div className="out-put">
-        <input
-          className="w-full h-14 text-right"
-          type="text"
-          value={newState.output}
-        ></input>
+        <div className="pb-8 h-8 bg-slate-200 text-right text-2xl">
+          {newState.previousValue}
+        </div>
+        <div className="pb-8 h-8 bg-slate-200 text-right text-2xl">
+          {newState.currentValue}
+        </div>
       </div>
       <div className="h-auto grid grid-cols-4 grid-cols-4 ">
         <button
-          // onClick={() => dispatch(numberClick())}
+          onClick={() => dispatch(clear())}
           className="bg-red-500 h-16 col-span-2 hover:bg-red-700 text-white font-bold py-2 px-4 border"
         >
           AC
         </button>
         <button
           name="/"
-          onClick={() => dispatch(numberClick("/"))}
+          onClick={() => {
+            dispatch(div("/"));
+          }}
           className="bg-blue-500 h-16 hover:bg-blue-700 text-white font-bold py-2 px-4 border"
         >
           /
         </button>
         <button
           name="x"
-          onClick={() => dispatch(numberClick("*"))}
+          onClick={() => dispatch(multi("*"))}
           className="bg-blue-500 h-16 hover:bg-blue-700 text-white font-bold py-2 px-4 border"
         >
           x
@@ -60,7 +71,7 @@ function Calculator() {
         </button>
         <button
           name="+"
-          onClick={() => dispatch(numberClick("+"))}
+          onClick={() => dispatch(add("+"))}
           className="bg-blue-500 h-16 hover:bg-blue-700 text-white font-bold py-2 px-4 border"
         >
           +
@@ -88,7 +99,7 @@ function Calculator() {
         </button>
         <button
           name="-"
-          onClick={() => dispatch(numberClick("-"))}
+          onClick={() => dispatch(sub("-"))}
           className="bg-blue-500 h-16 hover:bg-blue-700 text-white font-bold py-2 px-4 border"
         >
           -
@@ -115,7 +126,7 @@ function Calculator() {
           1
         </button>
         <button
-          onClick={() => dispatch(numberClick())}
+          onClick={() => dispatch(equals())}
           className="bg-blue-500 h-32c row-span-2 hover:bg-blue-700 text-white font-bold py-2 px-4 border"
         >
           =
