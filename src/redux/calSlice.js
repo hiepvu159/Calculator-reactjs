@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  overwrite: false,
   results: "",
   currentValue: "",
   previousValue: "",
@@ -14,7 +15,13 @@ export const calculatorSlice = createSlice({
     numberClick(state, { payload }) {
       if (payload === "0" && state.currentValue === "0") return state;
       if (payload === "." && state.currentValue.includes(".")) return state;
-
+      if (state.overwrite) {
+        return {
+          ...state,
+          currentValue: payload,
+          overwrite: false,
+        };
+      }
       return {
         ...state,
         currentValue: state.currentValue + payload,
@@ -77,6 +84,7 @@ export const calculatorSlice = createSlice({
       state.results = eval(state.previousValue + state.currentValue);
       state.previousValue = "";
       state.currentValue = state.results;
+      state.overwrite = true;
     },
     clear(state) {
       state.previousValue = "";
@@ -89,5 +97,5 @@ export const calculatorSlice = createSlice({
 
 export const { numberClick, add, sub, multi, div, equals, clear } =
   calculatorSlice.actions;
-// export const selectOutput = (state) => state.calculator.output;
+
 export default calculatorSlice.reducer;
